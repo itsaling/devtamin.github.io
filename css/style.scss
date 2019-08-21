@@ -1,0 +1,603 @@
+@import url("https://fonts.googleapis.com/css?family=Montserrat:400,700|Orbitron:400,700&display=swap");
+$primary-font: "Orbitron", sans-serif;
+$second-font: "Montserrat", sans-serif;
+
+$colors: (
+  primary: rgba(22, 22, 62, 1),
+  accent: rgba(216, 50, 54, 1),
+  skillR: rgba(216, 50, 53, 0.42),
+  skillA: rgba(50, 216, 101, 0.42)
+);
+@function color($color-name) {
+  @return map-get($colors, $color-name);
+}
+$mobile: 450px;
+$tablet: 900px;
+$desktop: 1024px;
+
+@mixin mobile {
+  @media (max-width:#{$mobile}) {
+    @content;
+  }
+}
+@mixin tablet {
+  @media (max-width: #{$tablet}) {
+    @content;
+  }
+}
+@mixin desktop {
+  @media (max-width:#{$desktop}) {
+    @content;
+  }
+}
+
+body {
+  margin: 0;
+  font-family: $second-font;
+  h1 {
+    color: color(primary);
+  }
+  p {
+    font-size: 1.3em;
+  }
+
+  header#nav {
+    position: fixed;
+    width: 100%;
+    background-color: #fff;
+    z-index: 10;
+    display: grid;
+    grid-template-columns: 1fr 1fr 1fr;
+    grid-template-areas: "menu logo login";
+    align-items: center;
+
+    #menu {
+      grid-area: menu;
+      padding: 30px;
+      margin-left: -10px;
+      background-color: color(accent);
+      @include desktop {
+        padding: 20px;
+        width: 30px;
+      }
+    }
+    #menu:hover {
+      cursor: pointer;
+    }
+    .overlay {
+      height: 100%;
+      width: 0;
+      position: fixed;
+      z-index: 5;
+      top: 0;
+      left: 0;
+      background-color: color(accent);
+      overflow-x: hidden;
+      transition: 0.5s;
+      .overlay-content {
+        text-align: center;
+        padding-top: 50px;
+        a {
+          position: relative;
+          color: white;
+          text-decoration: none;
+          display: block;
+          padding: 20px 50px;
+          font-size: 2em;
+          font-family: $primary-font;
+        }
+        a:hover {
+          color: color(primary);
+        }
+      }
+      .menu-grid {
+        display: grid;
+        grid-template-columns: repeat(3, 1fr);
+        justify-items: center;
+        img {
+          padding-top: 10px;
+          width: 200px;
+        }
+        a {
+          justify-self: left;
+          color: #fff;
+          text-decoration: none;
+        }
+      }
+    }
+
+    #logo {
+      grid-area: logo;
+      justify-self: center;
+      width: 230px;
+      @include desktop {
+        width: 180px;
+      }
+    }
+    #logo:hover {
+      cursor: pointer;
+    }
+    #login {
+      font-family: $primary-font;
+      font-size: 2em;
+      padding-right: 10px;
+      grid-area: login;
+      justify-self: right;
+      text-decoration: none;
+      color: color(primary);
+      @include desktop {
+        font-size: 1em;
+      }
+    }
+    @include tablet {
+      grid-template-columns: 1fr 1fr;
+      #menu {
+        grid-area: menu;
+        padding: 20px;
+      }
+      #logo {
+        grid-area: logo;
+        width: 150px;
+        float: right;
+      }
+      #login {
+        display: none;
+      }
+    }
+  }
+  footer {
+    display: grid;
+    grid-template-columns: 1fr auto;
+    grid-template-areas: "logo menu";
+    min-height: 400px;
+    align-items: center;
+    background: url("../assets/background.jpg") rgb(216, 50, 53);
+    background-blend-mode: multiply;
+
+    #left-logo {
+      padding: 80px;
+      grid-area: logo;
+      img {
+        width: 30%;
+      }
+      ul {
+        list-style: none;
+        cursor: pointer;
+        li {
+          display: inline;
+          font-size: 2em;
+          padding: 10px;
+          border-radius: 50px;
+          border: 2px solid color(primary);
+          color: color(primary);
+        }
+      }
+    }
+    #right-menu {
+      padding: 80px;
+      grid-area: menu;
+      font-family: $primary-font;
+      ul {
+        list-style: none;
+        cursor: pointer;
+
+        li {
+          text-align: right;
+          font-size: 2em;
+          padding: 10px;
+          color: white;
+        }
+        li:hover {
+          color: color(primary);
+        }
+      }
+    }
+
+    @include tablet {
+      display: block;
+      min-height: 600px;
+      padding: 0;
+      #left-logo {
+        padding: 30px 0;
+        text-align: center;
+        img {
+          width: 60%;
+        }
+        ul {
+          padding: 0;
+        }
+      }
+      #right-menu {
+        padding: 0;
+        ul {
+          padding: 0;
+          li {
+            text-align: center;
+          }
+        }
+      }
+    }
+  }
+
+  // index.html styling
+  section#top {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(320px, 1fr));
+    height: 100%;
+    #image {
+      z-index: 1;
+      margin-top: 300px;
+      width: 100%;
+      margin-left: 200px;
+    }
+    #content {
+      margin-top: 50px;
+      background-color: color(primary);
+      padding: 80px 70px 0 300px;
+      color: white;
+      grid-column: span 2;
+      z-index: 0;
+      h1 {
+        font-weight: bold;
+        font-size: 5em;
+        color: #fff;
+      }
+      .button {
+        margin-top: 90px;
+        display: inline-block;
+      }
+      a {
+        font-size: 25px;
+        color: color(accent);
+        img {
+          width: 25px;
+          padding-left: 10px;
+        }
+      }
+      #avatar {
+        float: right;
+        width: 70%;
+      }
+    }
+    @include desktop {
+      #content {
+        padding: 30px 50px 0 100px;
+        h1 {
+          font-size: 2.5em;
+        }
+      }
+      height: 600px;
+      #image {
+        margin-left: 50px;
+      }
+    }
+
+    @include tablet {
+      display: block;
+      #image {
+        width: 100%;
+        margin-top: 10px;
+        margin-left: 0;
+      }
+      #content {
+        padding: 30px;
+        height: 600px;
+        z-index: 5;
+        font-size: 1em;
+        color: white;
+        h1 {
+          font-size: 2em;
+        }
+      }
+    }
+  }
+  section#course {
+    // margin-top: 900px;
+    .gridContainer {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(240px, 1fr));
+      grid-template-areas: "title button";
+      padding-top: 5%;
+      #course-title {
+        grid-area: title;
+        padding-left: 20px;
+        color: color(primary);
+        font-size: 2.5em;
+        font-weight: 700;
+        @include desktop {
+          font-size: 1.9em;
+        }
+      }
+      #course-button {
+        grid-area: button;
+        padding: 20px;
+        background-color: color(accent);
+        color: white;
+        align-self: center;
+      }
+      #course-button:hover {
+        cursor: pointer;
+      }
+    }
+    .container {
+      margin-top: 50px;
+      padding: 0 100px;
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(240px, 1fr));
+      grid-gap: 20px;
+      justify-items: center;
+      .card {
+        box-shadow: 1px 1px 5px rgba(202, 202, 202, 0.671);
+        img {
+          width: 100%;
+        }
+        .card-content {
+          padding: 40px;
+        }
+      }
+      .card:hover {
+        cursor: pointer;
+      }
+    }
+    @include desktop {
+      margin-top: 100px;
+      .gridContainer {
+        padding-top: 50px;
+      }
+      .container {
+        margin-top: 30px;
+        .card {
+          img {
+            width: 100%;
+          }
+        }
+      }
+    }
+
+    @include tablet {
+      margin-top: 630px;
+      .gridContainer {
+        padding-top: 50px;
+        #course-title {
+          font-size: 2em;
+        }
+      }
+      .container {
+        margin-top: 0px;
+        .card {
+          width: 300px;
+          margin-bottom: 20px;
+          img {
+            width: 300px;
+          }
+        }
+      }
+    }
+    @include mobile {
+      margin-top: 400px;
+      .gridContainer {
+        padding-top: 0px;
+      }
+    }
+  }
+
+  section#about {
+    margin-top: 100px;
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+    background-image: linear-gradient(
+        to bottom,
+        rgba(255, 255, 255, 0.3),
+        rgba(255, 255, 255, 0.5)
+      ),
+      url(../assets/background.jpg);
+    background-attachment: fixed;
+    .about-title {
+      justify-self: center;
+      align-self: center;
+      #title {
+        font-size: 4em;
+        justify-content: center;
+        align-items: center;
+        color: color(accent);
+      }
+    }
+    .about-content {
+      grid-column: span 2;
+      background-color: color(primary);
+      color: white;
+      padding: 70px 90px;
+      h3 {
+        text-align: right;
+        color: color(accent);
+      }
+
+      img {
+        float: right;
+      }
+    }
+    @include tablet {
+      display: block;
+      margin-top: 0;
+      .about-title {
+        min-height: 300px;
+        #title {
+          text-align: center;
+          padding-top: 100px;
+        }
+      }
+      .about-content {
+        padding: 30px;
+        height: 650px;
+        img {
+          width: 40px;
+        }
+      }
+    }
+  }
+  section#tutorial {
+    margin-bottom: 100px;
+    .gridContainer {
+      display: grid;
+      grid-template-columns: 1fr auto;
+      grid-template-areas: "title button";
+      #course-title {
+        grid-area: title;
+        padding-left: 20px;
+        color: color(primary);
+        font-size: 2.5em;
+        font-weight: 700;
+      }
+      #course-button {
+        grid-area: button;
+        padding: 20px;
+        background-color: color(accent);
+        color: white;
+        align-self: center;
+      }
+      #course-button:hover {
+        cursor: pointer;
+      }
+    }
+    .container {
+      margin-top: 100px;
+      padding: 0 100px;
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(240px, 1fr));
+      grid-gap: 20px;
+      justify-items: center;
+    }
+
+    .card {
+      box-shadow: 1px 1px 5px rgba(202, 202, 202, 0.671);
+      img {
+        width: 100%;
+      }
+      .card-content {
+        padding: 20px;
+      }
+    }
+    @include desktop {
+      margin-top: 0px;
+      .gridContainer {
+        margin-top: 30px;
+      }
+      .container {
+        margin-top: 30px;
+        .card {
+          img {
+            width: 100%;
+          }
+        }
+      }
+    }
+
+    @include tablet {
+      margin-top: 0px;
+      .gridContainer {
+        margin-top: 10px;
+        #course-title {
+          font-size: 2em;
+        }
+      }
+      .container {
+        margin-top: 0px;
+        .card {
+          width: 300px;
+          margin-bottom: 20px;
+          img {
+            width: 300px;
+          }
+        }
+      }
+    }
+  }
+  // end index.html styling
+
+  // course.html styling
+  section#course {
+    .course {
+      display: grid;
+      grid-template-columns: repeat(4, 1fr);
+    }
+  }
+  // end course.html styling
+
+  // class.html styling
+  .class-container {
+    padding-top: 150px;
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(240px, 1fr));
+    img {
+      width: 100%;
+    }
+    .class-content {
+      padding: 0px 50px;
+      h1 {
+        text-transform: uppercase;
+        font-size: 3.5em;
+      }
+      .skills {
+        color: color(primary);
+        font-weight: 900;
+      }
+      ul.required,
+      ul.acquire {
+        list-style: none;
+        padding: 0;
+        li {
+          display: inline;
+          border: 2px solid #fff;
+          border-radius: 50px;
+          padding: 8px;
+        }
+      }
+      ul.required {
+        li {
+          background-color: color(skillR);
+        }
+      }
+      ul.acquire {
+        li {
+          background-color: color(skillA);
+        }
+      }
+      p {
+        padding-top: 20px;
+        font-size: 1.5em;
+      }
+    }
+  }
+
+  .class-summary {
+    padding: 0 10%;
+    font-size: 1.2em;
+  }
+
+  .overview {
+    padding: 0 10% 10% 10%;
+    h1 {
+      padding: 30px 0;
+    }
+    ol {
+      li {
+        font-size: 1.5em;
+        margin: 20px;
+        color: color(primary);
+        a {
+          color: color(primary);
+          text-decoration: none;
+          font-weight: bold;
+          padding-left: 20px;
+        }
+        a:hover {
+          color: color(accent);
+        }
+        span {
+          float: right;
+        }
+      }
+    }
+  }
+  // end class.html styling
+}
